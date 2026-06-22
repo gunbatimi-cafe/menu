@@ -23,35 +23,14 @@
 		<h1>Günbatımı Kafe</h1>
 	</header>
 	<div class="container">
-		<nav class="nav">
-			<a href="#coffees">Kahveler</a>
-			<a href="#sweets">Tatlılar</a>
+		<nav class="nav" id="nav">
+			<!-- Navigation will be generated from menu.json -->
 			<a href="#qr">QR Menü</a>
 		</nav>
 
-		<section id="coffees" class="menu-grid">
-			<div class="card">
-				<h2>Kahveler</h2>
-				<p>Americano - 80 TL</p>
-				<p>Latte - 90 TL</p>
-			</div>
-			<div class="card">
-				<h2>Soğuk İçecek</h2>
-				<p>Ice Latte - 100 TL</p>
-			</div>
-		</section>
-
-		<section id="sweets" class="menu-grid" style="margin-top:16px;">
-			<div class="card">
-				<h2>Tatlılar</h2>
-				<p>Waffle - 250 TL</p>
-				<p>Dondurma (1 top) - 60 TL</p>
-			</div>
-			<div class="card">
-				<h2>Atıştırmalıklar</h2>
-				<p>Kek - 120 TL</p>
-			</div>
-		</section>
+		<div id="menuContainer">
+			<!-- Menu sections will be rendered here from menu.json -->
+		</div>
 
 		<section id="qr" class="qr">
 			<h2>QR Menü</h2>
@@ -64,14 +43,66 @@
 		</section>
 	</div>
 
-	<script>
-		function setQR(){
-			var url = location.href;
-			var api = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=';
-			document.getElementById('qrImg').src = api + encodeURIComponent(url);
-		}
-		function printQRCode(){ window.print(); }
-		document.addEventListener('DOMContentLoaded', setQR);
-	</script>
+		<script>
+			async function loadMenu(){
+				try{
+					const res = await fetch('menu.json');
+					if(!res.ok) throw new Error('menu.json yüklenemedi');
+					const data = await res.json();
+					renderMenu(data);
+				}catch(e){
+					console.error(e);
+					document.getElementById('menuContainer').innerHTML = '<p style="color:#c00">Menü yüklenemedi.</p>';
+				}
+			}
+
+			function renderMenu(data){
+				const nav = document.getElementById('nav');
+				const container = document.getElementById('menuContainer');
+				// add section links
+				data.sections.forEach(sec=>{
+					const a = document.createElement('a');
+					a.href = '#'+sec.id;
+					a.textContent = sec.title;
+					nav.insertBefore(a, nav.firstChild);
+				});
+
+				// render sections
+				data.sections.forEach(sec=>{
+					const section = document.createElement('section');
+					section.id = sec.id;
+					section.className = 'menu-grid';
+					section.style.marginTop = '16px';
+
+					const card = document.createElement('div');
+					card.className = 'card';
+					const h = document.createElement('h2');
+					h.textContent = sec.title;
+					card.appendChild(h);
+
+					sec.items.forEach(item=>{
+						const p = document.createElement('p');
+						p.textContent = item.name + ' - ' + item.price;
+						card.appendChild(p);
+					});
+
+					section.appendChild(card);
+					container.appendChild(section);
+				});
+
+				// set QR after rendering (so location.href is correct)
+				setQR();
+			}
+
+			function setQR(){
+				var url = location.href;
+				var api = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=';
+				document.getElementById('qrImg').src = api + encodeURIComponent(url);
+			}
+
+			function printQRCode(){ window.print(); }
+
+			document.addEventListener('DOMContentLoaded', loadMenu);
+		</script>
 </body>
 </html>

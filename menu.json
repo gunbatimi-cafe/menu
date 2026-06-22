@@ -1,0 +1,27 @@
+{
+  "sections": [
+    {
+      "id": "coffees",
+      "title": "Kahveler",
+      "items": [
+        {"name": "Americano", "price": "80 TL"},
+        {"name": "Latte", "price": "90 TL"}
+      ]
+    },
+    {
+      "id": "sweets",
+      "title": "Tatlılar",
+      "items": [
+        {"name": "Waffle", "price": "250 TL"},
+        {"name": "Dondurma (1 top)", "price": "60 TL"}
+      ]
+    },
+    {
+      "id": "snacks",
+      "title": "Atıştırmalıklar",
+      "items": [
+        {"name": "Kek", "price": "120 TL"}
+      ]
+    }
+  ]
+}
