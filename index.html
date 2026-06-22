@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="tr">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Günbatımı Kafe</title>
+	<style>
+		body{font-family:Arial,Helvetica,sans-serif;margin:0;color:#222;background:#fff}
+		.header{background:linear-gradient(90deg,#ff9a9e,#fad0c4);padding:20px 12px;text-align:center}
+		.container{max-width:900px;margin:20px auto;padding:0 16px}
+		.nav{display:flex;justify-content:center;gap:10px;margin:12px 0;flex-wrap:wrap}
+		.nav a{text-decoration:none;color:#222;padding:8px 12px;background:#fff;border-radius:8px;border:1px solid #eee}
+		.menu-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+		.card{background:#fff;padding:14px;border:1px solid #eee;border-radius:8px}
+		.qr{text-align:center;margin-top:18px}
+		.btn{display:inline-block;padding:8px 12px;background:#222;color:#fff;border:none;border-radius:6px;cursor:pointer}
+		@media (max-width:600px){.menu-grid{grid-template-columns:1fr}.header h1{font-size:20px}}
+		@media print{.nav,.btn,.print-note{display:none!important}body{margin:0}}
+	</style>
+</head>
+<body>
+	<header class="header">
+		<h1>Günbatımı Kafe</h1>
+	</header>
+	<div class="container">
+		<nav class="nav">
+			<a href="#coffees">Kahveler</a>
+			<a href="#sweets">Tatlılar</a>
+			<a href="#qr">QR Menü</a>
+		</nav>
+
+		<section id="coffees" class="menu-grid">
+			<div class="card">
+				<h2>Kahveler</h2>
+				<p>Americano - 80 TL</p>
+				<p>Latte - 90 TL</p>
+			</div>
+			<div class="card">
+				<h2>Soğuk İçecek</h2>
+				<p>Ice Latte - 100 TL</p>
+			</div>
+		</section>
+
+		<section id="sweets" class="menu-grid" style="margin-top:16px;">
+			<div class="card">
+				<h2>Tatlılar</h2>
+				<p>Waffle - 250 TL</p>
+				<p>Dondurma (1 top) - 60 TL</p>
+			</div>
+			<div class="card">
+				<h2>Atıştırmalıklar</h2>
+				<p>Kek - 120 TL</p>
+			</div>
+		</section>
+
+		<section id="qr" class="qr">
+			<h2>QR Menü</h2>
+			<p>Bu sayfanın bağlantısını içeren QR kod (paylaşmak veya yazdırmak için kullanın):</p>
+			<img id="qrImg" alt="QR Menü" src="" style="width:200px;height:200px;border:1px solid #ddd;border-radius:8px;" />
+			<div style="margin-top:10px;">
+				<button class="btn" onclick="printQRCode()">Yazdır</button>
+			</div>
+			<p class="print-note" style="margin-top:8px;font-size:13px;color:#666">Not: QR kod, bu sayfanın URL'sine işaret eder. Yerelde test ederken URL `file://` olabilir; paylaşmadan önce sunucuya yükleyin.</p>
+		</section>
+	</div>
+
+	<script>
+		function setQR(){
+			var url = location.href;
+			var api = 'https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=';
+			document.getElementById('qrImg').src = api + encodeURIComponent(url);
+		}
+		function printQRCode(){ window.print(); }
+		document.addEventListener('DOMContentLoaded', setQR);
+	</script>
+</body>
+</html>
