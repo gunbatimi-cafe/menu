@@ -15,12 +15,7 @@
 --border:#3a2d21;
 }
 
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-scroll-behavior:smooth;
-}
+*{margin:0;padding:0;box-sizing:border-box;scroll-behavior:smooth;}
 
 body{
 font-family:Arial,Helvetica,sans-serif;
@@ -96,9 +91,7 @@ padding:10px 0;
 border-bottom:1px solid rgba(255,255,255,.08);
 }
 
-.item:last-child{
-border-bottom:none;
-}
+.item:last-child{border-bottom:none;}
 
 .price{
 font-weight:bold;
@@ -117,11 +110,6 @@ padding:35px 20px;
 text-align:center;
 background:#110d09;
 border-top:1px solid var(--border);
-}
-
-.footer h3{
-color:var(--gold);
-margin-bottom:15px;
 }
 
 .btn{
@@ -163,12 +151,13 @@ font-weight:bold;
 
 <div class="hero" id="top">
 <h1>🌅 Günbatımı Kafe</h1>
-<p>Kahve • Waffle • Dondurma • Atıştırmalıklar</p>
+<p>Kahve • Milkshake • Waffle • Dondurma • Atıştırmalıklar</p>
 </div>
 
 <div class="nav">
 <a href="#kahveler">☕ Kahveler</a>
 <a href="#meşrubatlar">🥤 Meşrubatlar</a>
+<a href="#milkshake">🥤 Milkshake</a>
 <a href="#cay">🍵 Çaylar</a>
 <a href="#waffle">🧇 Waffle</a>
 <a href="#dondurma">🍨 Dondurma</a>
@@ -183,14 +172,12 @@ font-weight:bold;
 <!-- KAHVELER -->
 <div class="card" id="kahveler">
 <h2>☕ Kahveler</h2>
-
 <div class="item"><span>Americano</span><span class="price">160 TL</span></div>
 <div class="item"><span>Latte</span><span class="price">175 TL</span></div>
 <div class="item"><span>Cappuccino</span><span class="price">175 TL</span></div>
 <div class="item"><span>Flat White</span><span class="price">175 TL</span></div>
 <div class="item"><span>Mocha</span><span class="price">195 TL</span></div>
 <div class="item"><span>Caramel Macchiato</span><span class="price">195 TL</span></div>
-
 <div class="item"><span>Türk Kahvesi</span><span class="price">100 TL</span></div>
 <div class="item"><span>Filtre Kahve</span><span class="price">150 TL</span></div>
 </div>
@@ -198,7 +185,6 @@ font-weight:bold;
 <!-- MEŞRUBATLAR -->
 <div class="card" id="meşrubatlar">
 <h2>🥤 Meşrubatlar</h2>
-
 <div class="item"><span>Coca-Cola</span><span class="price">100 TL</span></div>
 <div class="item"><span>Coca-Cola Zero</span><span class="price">100 TL</span></div>
 <div class="item"><span>Fanta</span><span class="price">100 TL</span></div>
@@ -208,7 +194,6 @@ font-weight:bold;
 <div class="item"><span>Limonata</span><span class="price">100 TL</span></div>
 
 <h2 style="margin-top:25px;">💧 Su & Soda</h2>
-
 <div class="item"><span>Su</span><span class="price">20 TL</span></div>
 <div class="item"><span>Soda Sade</span><span class="price">50 TL</span></div>
 <div class="item"><span>Soda Limon</span><span class="price">50 TL</span></div>
@@ -216,8 +201,28 @@ font-weight:bold;
 <div class="item"><span>Soda Karpuz-Çilek</span><span class="price">50 TL</span></div>
 </div>
 
-<!-- DİĞERLERİ AYNI KALDI -->
+<!-- MILKSHAKE -->
+<div class="card" id="milkshake">
+<h2>🥤 Milkshake</h2>
 
+<h2 style="margin-top:10px;">⭐ Çok Satanlar</h2>
+<div class="item"><span>Oreo’lu Milkshake ⭐</span><span class="price">250 TL</span></div>
+<div class="item"><span>Cicibebeli Milkshake ⭐</span><span class="price">250 TL</span></div>
+<div class="item"><span>Kavun Milkshake ⭐</span><span class="price">250 TL</span></div>
+
+<h2 style="margin-top:25px;">🍓 Meyveli Milkshake</h2>
+<div class="item"><span>Çilek Milkshake</span><span class="price">250 TL</span></div>
+<div class="item"><span>Muz Milkshake</span><span class="price">250 TL</span></div>
+<div class="item"><span>Mango Milkshake</span><span class="price">250 TL</span></div>
+<div class="item"><span>Vişne Milkshake</span><span class="price">250 TL</span></div>
+
+<h2 style="margin-top:25px;">🍦 Klasik Milkshake</h2>
+<div class="item"><span>Çikolata Milkshake</span><span class="price">250 TL</span></div>
+<div class="item"><span>Vanilya Milkshake</span><span class="price">250 TL</span></div>
+<div class="item"><span>Karamel Milkshake</span><span class="price">250 TL</span></div>
+</div>
+
+<!-- DİĞER -->
 <div class="card" id="cay">
 <h2>🍵 Çaylar</h2>
 <div class="item"><span>Siyah Çay</span><span class="price">25 TL</span></div>
@@ -238,7 +243,21 @@ font-weight:bold;
 <div class="item"><span>Çikolata</span><span class="price">60 TL</span></div>
 <div class="item"><span>Vanilya</span><span class="price">60 TL</span></div>
 <div class="item"><span>Karamel</span><span class="price">60 TL</span></div>
+<div class="item"><span>İtalyan Karamel</span><span class="price">60 TL</span></div>
+<div class="item"><span>Belçika Rüyası</span><span class="price">60 TL</span></div>
 <div class="item"><span>Çilek</span><span class="price">60 TL</span></div>
+<div class="item"><span>Limon</span><span class="price">60 TL</span></div>
+<div class="item"><span>Karadut</span><span class="price">60 TL</span></div>
+<div class="item"><span>Kurabiye</span><span class="price">60 TL</span></div>
+<div class="item"><span>Coconut</span><span class="price">60 TL</span></div>
+<div class="item"><span>Muz</span><span class="price">60 TL</span></div>
+<div class="item"><span>Kavun</span><span class="price">60 TL</span></div>
+<div class="item"><span>Antep Fıstığı</span><span class="price">60 TL</span></div>
+<div class="item"><span>Damla Sakızı</span><span class="price">60 TL</span></div>
+<div class="item"><span>Kadayıf</span><span class="price">60 TL</span></div>
+<div class="item"><span>Bal Badem</span><span class="price">60 TL</span></div>
+<div class="item"><span>Mango</span><span class="price">60 TL</span></div>
+<div class="item"><span>Vişne</span><span class="price">60 TL</span></div>
 </div>
 
 <div class="card" id="tost">
@@ -269,6 +288,15 @@ font-weight:bold;
 </div>
 
 </div>
+
+<div class="footer">
+<h3>🌅 Günbatımı Kafe</h3>
+<a class="btn" href="tel:05334017805">📞 Bizi Ara</a>
+<a class="btn" href="https://www.instagram.com/gun.batimi.cafe?igsh=YTk0M3Y0Y3dmdA==" target="_blank">📸 Instagram</a>
+<p style="margin-top:15px;color:#bbb;">Kaliteli kahve, tatlı ve keyifli sohbetler.</p>
+</div>
+
+<a href="#top" class="top">↑</a>
 
 </body>
 </html>
