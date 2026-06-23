@@ -27,26 +27,42 @@ font-family:Arial,Helvetica,sans-serif;
 background:var(--bg);
 color:var(--text);
 line-height:1.5;
+-webkit-tap-highlight-color: transparent;
 }
 
-/* HERO */
 .hero{
-padding:55px 20px;
+padding:50px 20px;
 text-align:center;
 background:linear-gradient(180deg,#2a1f18,#120e0b);
 border-bottom:1px solid var(--border);
 }
 
 .hero h1{
-font-size:40px;
+font-size:38px;
 color:var(--gold);
 margin-bottom:8px;
-letter-spacing:1px;
 }
 
 .hero p{
 color:var(--muted);
 font-size:15px;
+}
+
+/* 🔎 SEARCH */
+.search-box{
+margin-top:15px;
+padding:0 20px;
+}
+
+.search-box input{
+width:100%;
+padding:12px 14px;
+border-radius:12px;
+border:1px solid var(--border);
+background:#18120e;
+color:var(--text);
+outline:none;
+font-size:14px;
 }
 
 /* NAV */
@@ -60,7 +76,6 @@ gap:10px;
 overflow:auto;
 border-bottom:1px solid var(--border);
 z-index:999;
-
 -webkit-overflow-scrolling:touch;
 }
 
@@ -75,8 +90,9 @@ font-size:14px;
 transition:.2s;
 }
 
-.nav a:hover{
-background:#2a1f18;
+.nav a.active{
+background:var(--gold);
+color:#111;
 }
 
 /* CONTAINER */
@@ -99,7 +115,6 @@ margin-bottom:18px;
 color:var(--gold);
 margin-bottom:12px;
 font-size:22px;
-letter-spacing:.5px;
 }
 
 /* ITEM */
@@ -119,11 +134,9 @@ font-weight:bold;
 color:var(--gold);
 }
 
-/* NOTE */
-.note{
-font-size:13px;
-color:var(--muted);
-margin-top:8px;
+/* HIDE */
+.hidden{
+display:none !important;
 }
 
 /* FOOTER */
@@ -133,11 +146,6 @@ padding:35px 20px;
 text-align:center;
 background:#0e0a07;
 border-top:1px solid var(--border);
-}
-
-.footer h3{
-color:var(--gold);
-margin-bottom:10px;
 }
 
 .btn{
@@ -151,7 +159,6 @@ text-decoration:none;
 border-radius:10px;
 }
 
-/* TOP */
 .top{
 position:fixed;
 bottom:18px;
@@ -169,9 +176,8 @@ font-size:20px;
 font-weight:bold;
 }
 
-/* MOBILE */
 @media(max-width:600px){
-.hero h1{font-size:32px;}
+.hero h1{font-size:30px;}
 .card h2{font-size:20px;}
 }
 </style>
@@ -179,107 +185,136 @@ font-weight:bold;
 
 <body>
 
+<!-- HERO -->
 <div class="hero" id="top">
 <h1>🌅 Günbatımı Kafe</h1>
 <p>Kahve • Waffle • Dondurma • Atıştırmalıklar</p>
+
+<!-- SEARCH -->
+<div class="search-box">
+<input type="text" id="search" placeholder="Ürün ara... (latte, tost, cola)">
+</div>
 </div>
 
-<div class="nav">
-<a href="#kahveler">☕ Kahveler</a>
-<a href="#soguk">🧊 Soğuk Kahveler</a>
-<a href="#cay">🍵 Çaylar</a>
-<a href="#icecek">🥤 İçecekler</a>
+<!-- NAV -->
+<div class="nav" id="nav">
+<a href="#kahveler" class="active">☕ Kahveler</a>
+<a href="#soguk">🧊 Soğuk</a>
+<a href="#cay">🍵 Çay</a>
+<a href="#icecek">🥤 İçecek</a>
 <a href="#waffle">🧇 Waffle</a>
 <a href="#dondurma">🍨 Dondurma</a>
-<a href="#yemek">🍔 Yemekler</a>
+<a href="#yemek">🍔 Yemek</a>
 </div>
 
 <div class="container">
 
 <!-- KAHVELER -->
-<div class="card" id="kahveler">
-<h2>☕ Espresso Bazlı Kahveler</h2>
+<div class="card section" id="kahveler">
+<h2>☕ Kahveler</h2>
 
 <div class="item"><span>Americano</span><span class="price">160 TL</span></div>
 <div class="item"><span>Latte</span><span class="price">175 TL</span></div>
 <div class="item"><span>Cappuccino</span><span class="price">175 TL</span></div>
-<div class="item"><span>Flat White</span><span class="price">175 TL</span></div>
 <div class="item"><span>Mocha</span><span class="price">195 TL</span></div>
-<div class="item"><span>Caramel Macchiato</span><span class="price">195 TL</span></div>
-
-<h2 style="margin-top:20px;">☕ Diğer Kahveler</h2>
-
 <div class="item"><span>Türk Kahvesi</span><span class="price">100 TL</span></div>
-<div class="item"><span>Filtre Kahve</span><span class="price">150 TL</span></div>
 </div>
 
 <!-- SOĞUK -->
-<div class="card" id="soguk">
+<div class="card section" id="soguk">
 <h2>🧊 Soğuk Kahveler</h2>
 
-<div class="item"><span>Iced Americano</span><span class="price">160 TL</span></div>
 <div class="item"><span>Iced Latte</span><span class="price">175 TL</span></div>
-<div class="item"><span>Iced Mocha</span><span class="price">195 TL</span></div>
+<div class="item"><span>Iced Americano</span><span class="price">160 TL</span></div>
 </div>
 
 <!-- ÇAY -->
-<div class="card" id="cay">
+<div class="card section" id="cay">
 <h2>🍵 Çaylar</h2>
 
 <div class="item"><span>Siyah Çay</span><span class="price">25 TL</span></div>
-<div class="item"><span>Ada Çayı</span><span class="price">25 TL</span></div>
 </div>
 
 <!-- İÇECEK -->
-<div class="card" id="icecek">
+<div class="card section" id="icecek">
 <h2>🥤 İçecekler</h2>
 
 <div class="item"><span>Coca-Cola</span><span class="price">100 TL</span></div>
 <div class="item"><span>Fanta</span><span class="price">100 TL</span></div>
-<div class="item"><span>Sprite</span><span class="price">100 TL</span></div>
-<div class="item"><span>Limonata</span><span class="price">100 TL</span></div>
 </div>
 
 <!-- WAFFLE -->
-<div class="card" id="waffle">
+<div class="card section" id="waffle">
 <h2>🧇 Waffle</h2>
 
-<div class="item"><span>Bardak Waffle</span><span class="price">200 TL</span></div>
 <div class="item"><span>Tabak Waffle</span><span class="price">250 TL</span></div>
 </div>
 
 <!-- DONDURMA -->
-<div class="card" id="dondurma">
+<div class="card section" id="dondurma">
 <h2>🍨 Dondurma</h2>
 
-<p class="note">1 Top Dondurma = 60 TL</p>
-
 <div class="item"><span>Vanilya</span><span class="price">60 TL</span></div>
-<div class="item"><span>Çikolata</span><span class="price">60 TL</span></div>
-<div class="item"><span>Çilek</span><span class="price">60 TL</span></div>
 </div>
 
 <!-- YEMEK -->
-<div class="card" id="yemek">
+<div class="card section" id="yemek">
 <h2>🍔 Yemekler</h2>
 
 <div class="item"><span>Kaşarlı Tost</span><span class="price">150 TL</span></div>
-<div class="item"><span>Sucuklu Tost</span><span class="price">150 TL</span></div>
-<div class="item"><span>Karışık Tost</span><span class="price">150 TL</span></div>
-
-<div class="item"><span>Patates Tabağı</span><span class="price">150 TL</span></div>
-<div class="item"><span>Karışık Tabak</span><span class="price">300 TL</span></div>
 </div>
 
 </div>
 
+<!-- FOOTER -->
 <div class="footer">
 <h3>🌅 Günbatımı Kafe</h3>
+
 <a class="btn" href="tel:05334017805">📞 Ara</a>
 <a class="btn" href="https://instagram.com/gun.batimi.cafe">📸 Instagram</a>
 </div>
 
 <a href="#top" class="top">↑</a>
+
+<!-- JS -->
+<script>
+
+// 🔎 SEARCH FILTER
+const search = document.getElementById("search");
+search.addEventListener("input", function () {
+  const value = this.value.toLowerCase();
+  document.querySelectorAll(".item").forEach(item => {
+    const text = item.innerText.toLowerCase();
+    item.classList.toggle("hidden", !text.includes(value));
+  });
+});
+
+// 📌 ACTIVE SECTION HIGHLIGHT
+const sections = document.querySelectorAll(".section");
+const navLinks = document.querySelectorAll(".nav a");
+
+window.addEventListener("scroll", () => {
+  let current = "";
+
+  sections.forEach(sec => {
+    const top = window.scrollY;
+    const offset = sec.offsetTop - 150;
+    const height = sec.offsetHeight;
+
+    if (top >= offset && top < offset + height) {
+      current = sec.getAttribute("id");
+    }
+  });
+
+  navLinks.forEach(a => {
+    a.classList.remove("active");
+    if (a.getAttribute("href") === "#" + current) {
+      a.classList.add("active");
+    }
+  });
+});
+
+</script>
 
 </body>
 </html>
