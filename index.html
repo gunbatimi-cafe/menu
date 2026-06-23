@@ -1,110 +1,312 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Günbatımı Kafe Menü</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌅 Günbatımı Kafe QR Menü</title>
 
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      margin: 0;
-      background: #111;
-      color: #fff;
-    }
+<style>
+:root{
+--bg:#15110d;
+--card:#211a14;
+--gold:#d9b26f;
+--text:#f5f5f5;
+--muted:#bdbdbd;
+--border:#3a2d21;
+}
 
-    header {
-      text-align: center;
-      padding: 25px;
-      background: #1c1c1c;
-    }
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
+scroll-behavior:smooth;
+}
 
-    h1 {
-      margin: 0;
-      font-size: 28px;
-      color: #f5c542;
-    }
+body{
+font-family:Arial,Helvetica,sans-serif;
+background:var(--bg);
+color:var(--text);
+line-height:1.5;
+}
 
-    .container {
-      padding: 15px;
-      max-width: 600px;
-      margin: auto;
-    }
+.hero{
+padding:50px 20px;
+text-align:center;
+background:linear-gradient(180deg,#2b2119,#15110d);
+border-bottom:1px solid var(--border);
+}
 
-    .category {
-      margin-top: 25px;
-      font-size: 20px;
-      border-bottom: 1px solid #333;
-      padding-bottom: 5px;
-      color: #f5c542;
-    }
+.hero h1{
+font-size:38px;
+color:var(--gold);
+margin-bottom:10px;
+}
 
-    .item {
-      display: flex;
-      justify-content: space-between;
-      padding: 10px 0;
-      border-bottom: 1px solid #222;
-    }
+.hero p{
+color:var(--muted);
+font-size:16px;
+}
 
-    .name {
-      font-size: 16px;
-    }
+.nav{
+position:sticky;
+top:0;
+background:#18120e;
+padding:12px;
+display:flex;
+gap:10px;
+overflow:auto;
+border-bottom:1px solid var(--border);
+z-index:999;
+}
 
-    .price {
-      color: #aaa;
-    }
+.nav a{
+text-decoration:none;
+color:var(--text);
+background:var(--card);
+padding:10px 14px;
+border-radius:30px;
+white-space:nowrap;
+font-size:14px;
+}
 
-    footer {
-      text-align: center;
-      padding: 20px;
-      color: #777;
-      font-size: 12px;
-    }
-  </style>
+.container{
+max-width:900px;
+margin:auto;
+padding:20px;
+}
+
+.card{
+background:var(--card);
+border:1px solid var(--border);
+border-radius:18px;
+padding:20px;
+margin-bottom:22px;
+}
+
+.card h2{
+color:var(--gold);
+margin-bottom:15px;
+font-size:24px;
+}
+
+.item{
+display:flex;
+justify-content:space-between;
+padding:10px 0;
+border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.item:last-child{
+border-bottom:none;
+}
+
+.price{
+font-weight:bold;
+color:var(--gold);
+}
+
+.note{
+font-size:13px;
+color:var(--muted);
+margin-top:10px;
+}
+
+.footer{
+margin-top:40px;
+padding:35px 20px;
+text-align:center;
+background:#110d09;
+border-top:1px solid var(--border);
+}
+
+.footer h3{
+color:var(--gold);
+margin-bottom:15px;
+}
+
+.btn{
+display:inline-block;
+margin:6px;
+padding:12px 18px;
+background:var(--gold);
+color:#111;
+font-weight:bold;
+text-decoration:none;
+border-radius:12px;
+}
+
+.top{
+position:fixed;
+bottom:20px;
+right:20px;
+background:var(--gold);
+color:#111;
+text-decoration:none;
+width:50px;
+height:50px;
+display:flex;
+align-items:center;
+justify-content:center;
+border-radius:50%;
+font-size:22px;
+font-weight:bold;
+}
+
+@media(max-width:600px){
+.hero h1{
+font-size:30px;
+}
+.card h2{
+font-size:20px;
+}
+}
+</style>
 </head>
 
 <body>
 
-<header>
-  <h1>Günbatımı Kafe</h1>
-</header>
+<div class="hero" id="top">
+<h1>🌅 Günbatımı Kafe</h1>
+<p>Kahve • Waffle • Dondurma • Atıştırmalıklar</p>
+</div>
+
+<div class="nav">
+<a href="#kahveler">☕ Kahveler</a>
+<a href="#sogukkahve">🧊 Soğuk Kahveler</a>
+<a href="#cay">🍵 Çaylar</a>
+<a href="#icecek">🥤 İçecekler</a>
+<a href="#waffle">🧇 Waffle</a>
+<a href="#dondurma">🍨 Dondurma</a>
+<a href="#yemek">🍔 Yemekler</a>
+</div>
 
 <div class="container">
 
-  <div class="category">☕ Kahveler</div>
+<div class="card" id="kahveler">
+<h2>☕ Espresso Bazlı Kahveler</h2>
 
-  <div class="item">
-    <div class="name">Americano</div>
-    <div class="price">80 TL</div>
-  </div>
+<div class="item"><span>Americano</span><span class="price">160 TL</span></div>
+<div class="item"><span>Latte</span><span class="price">175 TL</span></div>
+<div class="item"><span>Cappuccino</span><span class="price">175 TL</span></div>
+<div class="item"><span>Flat White</span><span class="price">175 TL</span></div>
+<div class="item"><span>Mocha</span><span class="price">195 TL</span></div>
+<div class="item"><span>Caramel Macchiato</span><span class="price">195 TL</span></div>
 
-  <div class="item">
-    <div class="name">Latte</div>
-    <div class="price">90 TL</div>
-  </div>
+<h2 style="margin-top:25px;">☕ Diğer Sıcak Kahveler</h2>
 
-  <div class="item">
-    <div class="name">Cappuccino</div>
-    <div class="price">90 TL</div>
-  </div>
+<div class="item"><span>Türk Kahvesi</span><span class="price">100 TL</span></div>
+<div class="item"><span>Filtre Kahve</span><span class="price">150 TL</span></div>
+</div>
 
-  <div class="category">🍰 Tatlılar</div>
+<div class="card" id="sogukkahve">
+<h2>🧊 Soğuk Kahveler</h2>
 
-  <div class="item">
-    <div class="name">Waffle</div>
-    <div class="price">250 TL</div>
-  </div>
+<div class="item"><span>Iced Americano</span><span class="price">160 TL</span></div>
+<div class="item"><span>Iced Latte</span><span class="price">175 TL</span></div>
+<div class="item"><span>Iced Filtre Kahve</span><span class="price">150 TL</span></div>
+<div class="item"><span>Iced Mocha</span><span class="price">195 TL</span></div>
+<div class="item"><span>Iced Caramel Macchiato</span><span class="price">195 TL</span></div>
+</div>
 
-  <div class="item">
-    <div class="name">Dondurma (1 Top)</div>
-    <div class="price">60 TL</div>
-  </div>
+<div class="card" id="cay">
+<h2>🍵 Çaylar</h2>
+
+<div class="item"><span>Siyah Çay</span><span class="price">25 TL</span></div>
+<div class="item"><span>Ada Çayı</span><span class="price">25 TL</span></div>
+</div>
+
+<div class="card" id="icecek">
+<h2>🥤 Soğuk İçecekler</h2>
+
+<div class="item"><span>Coca-Cola</span><span class="price">100 TL</span></div>
+<div class="item"><span>Coca-Cola Zero</span><span class="price">100 TL</span></div>
+<div class="item"><span>Fanta</span><span class="price">100 TL</span></div>
+<div class="item"><span>Sprite</span><span class="price">100 TL</span></div>
+<div class="item"><span>Fuse Tea</span><span class="price">100 TL</span></div>
+<div class="item"><span>Cappy</span><span class="price">100 TL</span></div>
+<div class="item"><span>Limonata</span><span class="price">100 TL</span></div>
+
+<h2 style="margin-top:25px;">🥤 Soda Çeşitleri</h2>
+
+<div class="item"><span>Soda Sade</span><span class="price">50 TL</span></div>
+<div class="item"><span>Soda Limon</span><span class="price">50 TL</span></div>
+<div class="item"><span>Soda Elma</span><span class="price">50 TL</span></div>
+<div class="item"><span>Soda Karpuz-Çilek</span><span class="price">50 TL</span></div>
+</div>
+
+<div class="card" id="waffle">
+<h2>🧇 Waffle</h2>
+
+<div class="item"><span>Waffle Bardak</span><span class="price">200 TL</span></div>
+<div class="item"><span>Waffle Tabak</span><span class="price">250 TL</span></div>
+</div>
+
+<div class="card" id="dondurma">
+<h2>🍨 Dondurma</h2>
+
+<p class="note">1 Top Dondurma = 60 TL</p>
+
+<div class="item"><span>Kaymak</span><span class="price">60 TL</span></div>
+<div class="item"><span>Çikolata</span><span class="price">60 TL</span></div>
+<div class="item"><span>Vanilya</span><span class="price">60 TL</span></div>
+<div class="item"><span>Karamel</span><span class="price">60 TL</span></div>
+<div class="item"><span>İtalyan Karamel</span><span class="price">60 TL</span></div>
+<div class="item"><span>Belçika Rüyası</span><span class="price">60 TL</span></div>
+<div class="item"><span>Çilek</span><span class="price">60 TL</span></div>
+<div class="item"><span>Limon</span><span class="price">60 TL</span></div>
+<div class="item"><span>Karadut</span><span class="price">60 TL</span></div>
+<div class="item"><span>Kurabiye</span><span class="price">60 TL</span></div>
+<div class="item"><span>Coconut</span><span class="price">60 TL</span></div>
+<div class="item"><span>Muz</span><span class="price">60 TL</span></div>
+<div class="item"><span>Kavun</span><span class="price">60 TL</span></div>
+</div>
+
+<div class="card" id="yemek">
+<h2>🥪 Tostlar</h2>
+
+<div class="item"><span>Kaşarlı Tost</span><span class="price">150 TL</span></div>
+<div class="item"><span>Sucuklu Tost</span><span class="price">150 TL</span></div>
+<div class="item"><span>Karışık Tost</span><span class="price">150 TL</span></div>
+
+<h2 style="margin-top:25px;">🌭 Patso</h2>
+
+<div class="item"><span>Patso</span><span class="price">200 TL</span></div>
+<div class="item"><span>Sosisli Patso</span><span class="price">200 TL</span></div>
+
+<h2 style="margin-top:25px;">🍔 Burgerler</h2>
+
+<div class="item"><span>Tavuk Burger</span><span class="price">200 TL</span></div>
+<div class="item"><span>Tavuk Burger Menü</span><span class="price">300 TL</span></div>
+
+<h2 style="margin-top:25px;">🍟 Atıştırmalıklar</h2>
+
+<div class="item"><span>Nugget Tabağı</span><span class="price">150 TL</span></div>
+<div class="item"><span>Sosis Tabağı</span><span class="price">150 TL</span></div>
+<div class="item"><span>Patates Tabağı</span><span class="price">150 TL</span></div>
+<div class="item"><span>Karışık Tabak</span><span class="price">300 TL</span></div>
+</div>
 
 </div>
 
-<footer>
-  Günbatımı Kafe • QR Menü
-</footer>
+<div class="footer">
+<h3>🌅 Günbatımı Kafe</h3>
+
+<a class="btn" href="tel:05334017805">
+📞 Bizi Ara
+</a>
+
+<a class="btn"
+href="https://www.instagram.com/gun.batimi.cafe?igsh=YTk0M3Y0Y3dmdA=="
+target="_blank">
+📸 Instagram
+</a>
+
+<p style="margin-top:15px;color:#bbb;">
+Kaliteli kahve, tatlı ve keyifli sohbetler.
+</p>
+</div>
+
+<a href="#top" class="top">↑</a>
 
 </body>
 </html>
