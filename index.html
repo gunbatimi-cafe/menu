@@ -7,12 +7,12 @@
 
 <style>
 :root{
---bg:#15110d;
---card:#211a14;
+--bg:#120e0b;
+--card:#1d1611;
 --gold:#d9b26f;
 --text:#f5f5f5;
---muted:#bdbdbd;
---border:#3a2d21;
+--muted:#b8b8b8;
+--border:#2f241c;
 }
 
 *{
@@ -22,51 +22,46 @@ box-sizing:border-box;
 scroll-behavior:smooth;
 }
 
-/* 🍏 iOS FIX */
-html{
-scroll-behavior:smooth;
-}
-
 body{
 font-family:Arial,Helvetica,sans-serif;
 background:var(--bg);
 color:var(--text);
 line-height:1.5;
-
--webkit-tap-highlight-color: transparent;
--webkit-text-size-adjust: 100%;
 }
 
+/* HERO */
 .hero{
-padding:50px 20px;
+padding:55px 20px;
 text-align:center;
-background:linear-gradient(180deg,#2b2119,#15110d);
+background:linear-gradient(180deg,#2a1f18,#120e0b);
 border-bottom:1px solid var(--border);
 }
 
 .hero h1{
-font-size:38px;
+font-size:40px;
 color:var(--gold);
-margin-bottom:10px;
+margin-bottom:8px;
+letter-spacing:1px;
 }
 
 .hero p{
 color:var(--muted);
-font-size:16px;
+font-size:15px;
 }
 
+/* NAV */
 .nav{
 position:sticky;
 top:0;
-background:#18120e;
-padding:12px;
+background:#15100c;
+padding:10px;
 display:flex;
 gap:10px;
 overflow:auto;
 border-bottom:1px solid var(--border);
 z-index:999;
 
--webkit-overflow-scrolling: touch;
+-webkit-overflow-scrolling:touch;
 }
 
 .nav a{
@@ -74,36 +69,45 @@ text-decoration:none;
 color:var(--text);
 background:var(--card);
 padding:10px 14px;
-border-radius:30px;
+border-radius:25px;
 white-space:nowrap;
 font-size:14px;
+transition:.2s;
 }
 
+.nav a:hover{
+background:#2a1f18;
+}
+
+/* CONTAINER */
 .container{
 max-width:900px;
 margin:auto;
 padding:20px;
 }
 
+/* CARD */
 .card{
 background:var(--card);
 border:1px solid var(--border);
-border-radius:18px;
-padding:20px;
-margin-bottom:22px;
+border-radius:16px;
+padding:18px;
+margin-bottom:18px;
 }
 
 .card h2{
 color:var(--gold);
-margin-bottom:15px;
-font-size:24px;
+margin-bottom:12px;
+font-size:22px;
+letter-spacing:.5px;
 }
 
+/* ITEM */
 .item{
 display:flex;
 justify-content:space-between;
 padding:10px 0;
-border-bottom:1px solid rgba(255,255,255,.08);
+border-bottom:1px solid rgba(255,255,255,.06);
 }
 
 .item:last-child{
@@ -115,23 +119,25 @@ font-weight:bold;
 color:var(--gold);
 }
 
+/* NOTE */
 .note{
 font-size:13px;
 color:var(--muted);
-margin-top:10px;
+margin-top:8px;
 }
 
+/* FOOTER */
 .footer{
 margin-top:40px;
 padding:35px 20px;
 text-align:center;
-background:#110d09;
+background:#0e0a07;
 border-top:1px solid var(--border);
 }
 
 .footer h3{
 color:var(--gold);
-margin-bottom:15px;
+margin-bottom:10px;
 }
 
 .btn{
@@ -142,32 +148,30 @@ background:var(--gold);
 color:#111;
 font-weight:bold;
 text-decoration:none;
-border-radius:12px;
-cursor:pointer;
-
-touch-action: manipulation;
+border-radius:10px;
 }
 
+/* TOP */
 .top{
 position:fixed;
-bottom:20px;
-right:20px;
-background:var(--gold);
-color:#111;
-text-decoration:none;
-width:50px;
-height:50px;
+bottom:18px;
+right:18px;
+width:48px;
+height:48px;
 display:flex;
 align-items:center;
 justify-content:center;
+background:var(--gold);
+color:#111;
 border-radius:50%;
-font-size:22px;
+text-decoration:none;
+font-size:20px;
 font-weight:bold;
 }
 
-/* mobile */
+/* MOBILE */
 @media(max-width:600px){
-.hero h1{font-size:30px;}
+.hero h1{font-size:32px;}
 .card h2{font-size:20px;}
 }
 </style>
@@ -175,40 +179,26 @@ font-weight:bold;
 
 <body>
 
-<!-- HERO -->
 <div class="hero" id="top">
-
-<h1 data-tr="🌅 Günbatımı Kafe" data-en="🌅 Sunset Cafe">🌅 Günbatımı Kafe</h1>
-
-<p data-tr="Kahve • Waffle • Dondurma • Atıştırmalıklar"
-   data-en="Coffee • Waffle • Ice Cream • Snacks">
-Kahve • Waffle • Dondurma • Atıştırmalıklar
-</p>
-
-<!-- LANG -->
-<div style="margin-top:15px;">
-  <button class="btn" onclick="setLang('tr')">🇹🇷 Türkçe</button>
-  <button class="btn" onclick="setLang('en')">🇬🇧 English</button>
+<h1>🌅 Günbatımı Kafe</h1>
+<p>Kahve • Waffle • Dondurma • Atıştırmalıklar</p>
 </div>
 
-</div>
-
-<!-- NAV -->
 <div class="nav">
-<a href="#kahveler">☕ <span data-tr="Kahveler" data-en="Coffees">Kahveler</span></a>
-<a href="#sogukkahve">🧊 <span data-tr="Soğuk Kahveler" data-en="Iced Coffees">Soğuk Kahveler</span></a>
-<a href="#cay">🍵 <span data-tr="Çaylar" data-en="Teas">Çaylar</span></a>
-<a href="#icecek">🥤 <span data-tr="İçecekler" data-en="Drinks">İçecekler</span></a>
+<a href="#kahveler">☕ Kahveler</a>
+<a href="#soguk">🧊 Soğuk Kahveler</a>
+<a href="#cay">🍵 Çaylar</a>
+<a href="#icecek">🥤 İçecekler</a>
 <a href="#waffle">🧇 Waffle</a>
-<a href="#dondurma">🍨 <span data-tr="Dondurma" data-en="Ice Cream">Dondurma</span></a>
-<a href="#yemek">🍔 <span data-tr="Yemekler" data-en="Food">Yemekler</span></a>
+<a href="#dondurma">🍨 Dondurma</a>
+<a href="#yemek">🍔 Yemekler</a>
 </div>
 
 <div class="container">
 
-<!-- KAHVE -->
+<!-- KAHVELER -->
 <div class="card" id="kahveler">
-<h2 data-tr="☕ Espresso Bazlı Kahveler" data-en="☕ Espresso Based Coffees">☕ Espresso Bazlı Kahveler</h2>
+<h2>☕ Espresso Bazlı Kahveler</h2>
 
 <div class="item"><span>Americano</span><span class="price">160 TL</span></div>
 <div class="item"><span>Latte</span><span class="price">175 TL</span></div>
@@ -217,131 +207,79 @@ Kahve • Waffle • Dondurma • Atıştırmalıklar
 <div class="item"><span>Mocha</span><span class="price">195 TL</span></div>
 <div class="item"><span>Caramel Macchiato</span><span class="price">195 TL</span></div>
 
-<h2 style="margin-top:25px;" data-tr="☕ Diğer Sıcak Kahveler" data-en="☕ Other Hot Coffees">
-☕ Diğer Sıcak Kahveler
-</h2>
+<h2 style="margin-top:20px;">☕ Diğer Kahveler</h2>
 
-<div class="item">
-<span data-tr="Türk Kahvesi" data-en="Turkish Coffee">Türk Kahvesi</span>
-<span class="price">100 TL</span>
-</div>
-
+<div class="item"><span>Türk Kahvesi</span><span class="price">100 TL</span></div>
 <div class="item"><span>Filtre Kahve</span><span class="price">150 TL</span></div>
 </div>
 
 <!-- SOĞUK -->
-<div class="card" id="sogukkahve">
-<h2 data-tr="🧊 Soğuk Kahveler" data-en="🧊 Iced Coffees">🧊 Soğuk Kahveler</h2>
+<div class="card" id="soguk">
+<h2>🧊 Soğuk Kahveler</h2>
 
 <div class="item"><span>Iced Americano</span><span class="price">160 TL</span></div>
 <div class="item"><span>Iced Latte</span><span class="price">175 TL</span></div>
-<div class="item"><span>Iced Filtre Kahve</span><span class="price">150 TL</span></div>
 <div class="item"><span>Iced Mocha</span><span class="price">195 TL</span></div>
-<div class="item"><span>Iced Caramel Macchiato</span><span class="price">195 TL</span></div>
 </div>
 
 <!-- ÇAY -->
 <div class="card" id="cay">
-<h2 data-tr="🍵 Çaylar" data-en="🍵 Teas">🍵 Çaylar</h2>
+<h2>🍵 Çaylar</h2>
 
-<div class="item"><span data-tr="Siyah Çay" data-en="Black Tea">Siyah Çay</span><span class="price">25 TL</span></div>
+<div class="item"><span>Siyah Çay</span><span class="price">25 TL</span></div>
 <div class="item"><span>Ada Çayı</span><span class="price">25 TL</span></div>
 </div>
 
 <!-- İÇECEK -->
 <div class="card" id="icecek">
-<h2 data-tr="🥤 Soğuk İçecekler" data-en="🥤 Cold Drinks">🥤 Soğuk İçecekler</h2>
+<h2>🥤 İçecekler</h2>
 
 <div class="item"><span>Coca-Cola</span><span class="price">100 TL</span></div>
-<div class="item"><span>Coca-Cola Zero</span><span class="price">100 TL</span></div>
 <div class="item"><span>Fanta</span><span class="price">100 TL</span></div>
 <div class="item"><span>Sprite</span><span class="price">100 TL</span></div>
-<div class="item"><span>Fuse Tea</span><span class="price">100 TL</span></div>
-<div class="item"><span>Cappy</span><span class="price">100 TL</span></div>
 <div class="item"><span>Limonata</span><span class="price">100 TL</span></div>
-
-<h2 style="margin-top:25px;" data-tr="🥤 Soda Çeşitleri" data-en="🥤 Soda Types">
-🥤 Soda Çeşitleri
-</h2>
-
-<div class="item"><span>Soda Sade</span><span class="price">50 TL</span></div>
-<div class="item"><span>Soda Limon</span><span class="price">50 TL</span></div>
-<div class="item"><span>Soda Elma</span><span class="price">50 TL</span></div>
-<div class="item"><span>Soda Karpuz-Çilek</span><span class="price">50 TL</span></div>
 </div>
 
 <!-- WAFFLE -->
 <div class="card" id="waffle">
 <h2>🧇 Waffle</h2>
 
-<div class="item"><span>Waffle Bardak</span><span class="price">200 TL</span></div>
-<div class="item"><span>Waffle Tabak</span><span class="price">250 TL</span></div>
+<div class="item"><span>Bardak Waffle</span><span class="price">200 TL</span></div>
+<div class="item"><span>Tabak Waffle</span><span class="price">250 TL</span></div>
 </div>
 
 <!-- DONDURMA -->
 <div class="card" id="dondurma">
-<h2 data-tr="🍨 Dondurma" data-en="🍨 Ice Cream">🍨 Dondurma</h2>
+<h2>🍨 Dondurma</h2>
 
-<p class="note" data-tr="1 Top = 60 TL" data-en="1 Scoop = 60 TL">1 Top = 60 TL</p>
+<p class="note">1 Top Dondurma = 60 TL</p>
 
-<div class="item"><span>Kaymak</span><span class="price">60 TL</span></div>
-<div class="item"><span>Çikolata</span><span class="price">60 TL</span></div>
 <div class="item"><span>Vanilya</span><span class="price">60 TL</span></div>
-<div class="item"><span>Karamel</span><span class="price">60 TL</span></div>
+<div class="item"><span>Çikolata</span><span class="price">60 TL</span></div>
 <div class="item"><span>Çilek</span><span class="price">60 TL</span></div>
 </div>
 
 <!-- YEMEK -->
 <div class="card" id="yemek">
-<h2 data-tr="🍔 Yemekler" data-en="🍔 Food">🍔 Yemekler</h2>
+<h2>🍔 Yemekler</h2>
 
-<div class="item"><span data-tr="Kaşarlı Tost" data-en="Cheese Toast">Kaşarlı Tost</span><span class="price">150 TL</span></div>
-<div class="item"><span data-tr="Sucuklu Tost" data-en="Sausage Toast">Sucuklu Tost</span><span class="price">150 TL</span></div>
+<div class="item"><span>Kaşarlı Tost</span><span class="price">150 TL</span></div>
+<div class="item"><span>Sucuklu Tost</span><span class="price">150 TL</span></div>
+<div class="item"><span>Karışık Tost</span><span class="price">150 TL</span></div>
+
+<div class="item"><span>Patates Tabağı</span><span class="price">150 TL</span></div>
+<div class="item"><span>Karışık Tabak</span><span class="price">300 TL</span></div>
 </div>
 
 </div>
 
-<!-- FOOTER -->
 <div class="footer">
-<h3 data-tr="🌅 Günbatımı Kafe" data-en="🌅 Sunset Cafe">🌅 Günbatımı Kafe</h3>
-
-<a class="btn" href="tel:05334017805" data-tr="📞 Ara" data-en="📞 Call">📞 Ara</a>
-
-<a class="btn" href="https://instagram.com/gun.batimi.cafe" target="_blank">📸 Instagram</a>
-
-<p style="margin-top:15px;color:#bbb;"
-data-tr="Kaliteli kahve ve tatlılar"
-data-en="Quality coffee and desserts">
-Kaliteli kahve ve tatlılar
-</p>
+<h3>🌅 Günbatımı Kafe</h3>
+<a class="btn" href="tel:05334017805">📞 Ara</a>
+<a class="btn" href="https://instagram.com/gun.batimi.cafe">📸 Instagram</a>
 </div>
 
-<!-- TOP -->
 <a href="#top" class="top">↑</a>
-
-<!-- SCRIPT -->
-<script>
-function setLang(lang){
-  document.querySelectorAll('[data-tr]').forEach(el=>{
-    const val = el.getAttribute('data-' + lang);
-    if(val) el.innerText = val;
-  });
-  localStorage.setItem("lang", lang);
-}
-
-(function(){
-  const saved = localStorage.getItem("lang");
-  const browser = navigator.language || "";
-
-  if(saved){
-    setLang(saved);
-  } else if(browser.toLowerCase().startsWith("en")){
-    setLang("en");
-  } else {
-    setLang("tr");
-  }
-})();
-</script>
 
 </body>
 </html>
