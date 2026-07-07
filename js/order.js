@@ -34,6 +34,7 @@ const deleteOrderBtn = document.getElementById("deleteOrder");
 const cancelPayment = document.getElementById("cancelPayment");
 
 const closeTableBtn = document.getElementById("closeTable");
+const orderSection = document.getElementById("orderSection");
 
 async function loadProducts() {
 
@@ -113,8 +114,15 @@ async function loadTables() {
 
                 selectedTableDiv.innerText =
                     "Seçilen Masa: " + table.name;
+                
+                
 
+                
                 await loadOpenOrder(table.name);
+
+                orderSection.style.display =
+                    "block";
+                
                 await loadTables();
 
             };
@@ -602,7 +610,9 @@ function closePaymentWindow() {
         "Seçilen Masa: Yok";
 
     renderCart();
-
+    
+    orderSection.style.display = "none";
+    
     loadTables();
 
 }
@@ -611,6 +621,8 @@ function closePaymentWindow() {
 
 // Başlat
 window.onload = async () => {
+
+    orderSection.style.display = "none";
 
     await loadProducts();
     await loadTables();
