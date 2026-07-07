@@ -5,7 +5,6 @@ import {
 collection,
 addDoc,
 serverTimestamp,
-getDocs,
 updateDoc,
 doc,
 query,
@@ -750,12 +749,17 @@ function closePaymentWindow(){
 
 
     currentOrderId=null;
+    selectedTable=null;
+
+selectedTableDiv.innerText =
+"Seçilen Masa: Yok";
 
 
     renderCart();
 
 
     loadTables();
+    
 
 
 }
