@@ -84,6 +84,8 @@ async function loadTables(){
 
             selectedTableDiv.innerText =
             "Seçilen Masa: " + table.name;
+            
+            showTableOrder(table.name);
 
         };
 
@@ -255,7 +257,38 @@ window.removeItem = function(index){
 
 };
 
+async function showTableOrder(tableName){
+
+    const snapshot = await getDocs(collection(db,"orders"));
+
+    let text = "Seçilen Masa: " + tableName + "\n\n";
+
+    snapshot.forEach(doc=>{
+
+        const order = doc.data();
+
+        if(order.table === tableName && order.status === "open"){
+
+            order.items.forEach(item=>{
+
+                text += 
+                item.name + 
+                " x" + item.qty + 
+                "\n";
+
+            });
+
+            text += "\nToplam: " + order.total + " TL";
+
+        }
+
+    });
+
+    alert(text);
+
+}
 // Sayfa açılışında yükle
+
 
 loadTables();
 loadProducts();
