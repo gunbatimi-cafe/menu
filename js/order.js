@@ -122,10 +122,6 @@ function renderCart(){
 }
 
 
-    totalDiv.innerText = total + " TL";
-
-}
-
 
 // Sipariş kaydet
 
