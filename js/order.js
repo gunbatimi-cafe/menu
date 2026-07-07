@@ -220,7 +220,7 @@ await updateDoc(
         status:"open"
     }
 );
-    
+    await loadTables();
     alert("Sipariş kaydedildi");
 
 
