@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="tr">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Adisyon</title>
+
+<link rel="stylesheet" href="css/admin.css">
+
+<style>
+
+body{
+background:#15110d;
+color:white;
+}
+
+.header{
+background:#211a14;
+padding:20px;
+text-align:center;
+font-size:28px;
+font-weight:bold;
+color:#d9b26f;
+border-bottom:2px solid #d9b26f;
+}
+
+.container{
+display:grid;
+grid-template-columns:2fr 1fr;
+gap:20px;
+padding:20px;
+}
+
+.products{
+
+display:grid;
+grid-template-columns:repeat(auto-fill,minmax(180px,1fr));
+gap:15px;
+
+}
+
+.product{
+
+background:#211a14;
+border:1px solid #3a2d21;
+border-radius:15px;
+padding:15px;
+cursor:pointer;
+transition:.2s;
+
+}
+
+.product:hover{
+
+transform:scale(1.03);
+
+}
+
+.product h3{
+
+color:#d9b26f;
+margin-bottom:10px;
+
+}
+
+.product p{
+
+font-size:18px;
+
+}
+
+.cart{
+
+background:#211a14;
+padding:20px;
+border-radius:15px;
+height:fit-content;
+
+}
+
+.cart-item{
+
+display:flex;
+justify-content:space-between;
+margin:10px 0;
+
+}
+
+.total{
+
+margin-top:20px;
+font-size:24px;
+font-weight:bold;
+color:#d9b26f;
+
+}
+
+button{
+
+width:100%;
+margin-top:20px;
+padding:15px;
+font-size:18px;
+border:none;
+border-radius:12px;
+background:#d9b26f;
+font-weight:bold;
+cursor:pointer;
+
+}
+
+@media(max-width:900px){
+
+.container{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+
+🧾 Adisyon
+
+</div>
+
+<div class="container">
+
+<div>
+
+<h2>Ürünler</h2>
+
+<div id="products" class="products"></div>
+
+</div>
+
+<div class="cart">
+
+<h2>Adisyon</h2>
+
+<div id="cart"></div>
+
+<div class="total">
+
+Toplam :
+<span id="total">0 TL</span>
+
+</div>
+
+<button id="saveOrder">
+
+Siparişi Kaydet
+
+</button>
+
+</div>
+
+</div>
+
+<script type="module" src="js/order.js"></script>
+
+</body>
+
+</html>
