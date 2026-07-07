@@ -229,4 +229,7 @@ window.removeItem = function(index){
 
 };
 
+// Sayfa açılışında yükle
+
+loadTables();
 loadProducts();
