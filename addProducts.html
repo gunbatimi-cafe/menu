@@ -2,14 +2,82 @@
 <html lang="tr">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Ürün Ekle</title>
 </head>
 
 <body>
 
-<h2>Ürünler ekleniyor...</h2>
+<h2>Menü yükleniyor...</h2>
 
-<script type="module" src="js/addProducts.js"></script>
+<script type="module">
+
+import { db } from "./js/firebase.js";
+
+import {
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+
+const products = [
+
+{name:"Americano",price:160,category:"Kahve"},
+{name:"Latte",price:175,category:"Kahve"},
+{name:"Cappuccino",price:175,category:"Kahve"},
+{name:"Flat White",price:175,category:"Kahve"},
+{name:"Mocha",price:195,category:"Kahve"},
+{name:"Caramel Macchiato",price:195,category:"Kahve"},
+{name:"Türk Kahvesi",price:100,category:"Kahve"},
+{name:"Filtre Kahve",price:150,category:"Kahve"},
+{name:"Iced Filter Coffee",price:150,category:"Soğuk Kahve"},
+
+{name:"Siyah Çay",price:25,category:"Çay"},
+{name:"Ada Çayı",price:25,category:"Çay"},
+
+{name:"Waffle Tabak",price:300,category:"Tatlı"},
+{name:"Waffle Bardak",price:250,category:"Tatlı"},
+{name:"Dondurma 1 Top",price:60,category:"Tatlı"},
+
+{name:"Nugget Tabağı",price:150,category:"Atıştırmalık"},
+{name:"Sosis Tabağı",price:150,category:"Atıştırmalık"},
+{name:"Patates Tabağı",price:150,category:"Atıştırmalık"},
+{name:"Karışık Tabak",price:300,category:"Atıştırmalık"},
+
+{name:"Chicken Burger",price:200,category:"Burger"},
+{name:"Chicken Burger Menü",price:300,category:"Burger"},
+
+{name:"Tost",price:150,category:"Tost"},
+{name:"Patsos",price:200,category:"Tost"},
+
+{name:"Milkshake",price:250,category:"İçecek"},
+{name:"Kola",price:100,category:"İçecek"},
+{name:"Gazoz",price:100,category:"İçecek"},
+{name:"Soda",price:50,category:"İçecek"},
+{name:"Su",price:25,category:"İçecek"}
+
+];
+
+
+async function addProducts(){
+
+for(const product of products){
+
+await addDoc(
+collection(db,"products"),
+product
+);
+
+}
+
+alert("Menü eklendi");
+
+}
+
+
+addProducts();
+
+</script>
 
 </body>
 </html>
