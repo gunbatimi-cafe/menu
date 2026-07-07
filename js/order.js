@@ -85,19 +85,41 @@ function renderCart(){
     let total = 0;
 
 
-    cart.forEach(item => {
+    cart.forEach((item,index) => {
 
         total += item.price * item.qty;
 
 
         cartDiv.innerHTML += `
         <div class="cart-item">
-        <span>${item.name} x${item.qty}</span>
-        <span>${item.price * item.qty} TL</span>
+
+            <span>
+            ${item.name}
+            </span>
+
+            <div>
+                <button onclick="changeQty(${index}, -1)">-</button>
+
+                <span style="margin:0 8px;">
+                ${item.qty}
+                </span>
+
+                <button onclick="changeQty(${index}, 1)">+</button>
+
+                <button onclick="removeItem(${index})">
+                🗑
+                </button>
+            </div>
+
         </div>
         `;
 
     });
+
+
+    totalDiv.innerText = total + " TL";
+
+}
 
 
     totalDiv.innerText = total + " TL";
@@ -159,6 +181,29 @@ saveBtn.onclick = async () => {
 
 };
 
+window.changeQty = function(index, amount){
 
+    cart[index].qty += amount;
+
+
+    if(cart[index].qty <= 0){
+
+        cart.splice(index,1);
+
+    }
+
+
+    renderCart();
+
+};
+
+
+window.removeItem = function(index){
+
+    cart.splice(index,1);
+
+    renderCart();
+
+};
 
 loadProducts();
