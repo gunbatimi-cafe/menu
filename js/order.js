@@ -18,7 +18,6 @@ const productsDiv = document.getElementById("products");
 const cartDiv = document.getElementById("cart");
 const totalDiv = document.getElementById("total");
 const saveBtn = document.getElementById("saveOrder");
-const tableSelect = document.getElementById("tableSelect");
 const tablesDiv = document.getElementById("tables");
 const selectedTableDiv = document.getElementById("selectedTable");
 
