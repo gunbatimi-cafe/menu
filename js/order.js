@@ -4,7 +4,8 @@ import { db } from "./firebase.js";
 import {
 collection,
 addDoc,
-serverTimestamp
+serverTimestamp,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
@@ -17,6 +18,7 @@ const cartDiv = document.getElementById("cart");
 const totalDiv = document.getElementById("total");
 const saveBtn = document.getElementById("saveOrder");
 const tableSelect = document.getElementById("tableSelect");
+const tablesDiv = document.getElementById("tables");
 
 
 // Ürünleri yükle
@@ -46,7 +48,32 @@ async function loadProducts(){
     });
 
 }
+// Masaları yükle
 
+async function loadTables(){
+
+    const snapshot = await getDocs(collection(db,"tables"));
+
+    tablesDiv.innerHTML = "";
+
+    snapshot.forEach(doc=>{
+
+        const table = doc.data();
+
+        const div = document.createElement("div");
+
+        div.className = "product";
+
+        div.innerHTML = `
+            <h3>${table.name}</h3>
+            <p>${table.status}</p>
+        `;
+
+        tablesDiv.appendChild(div);
+
+    });
+
+}
 
 // Sepete ekle
 
