@@ -11,6 +11,7 @@ getDocs
 
 let products = [];
 let cart = [];
+let selectedTable = null;
 
 
 const productsDiv = document.getElementById("products");
@@ -19,6 +20,7 @@ const totalDiv = document.getElementById("total");
 const saveBtn = document.getElementById("saveOrder");
 const tableSelect = document.getElementById("tableSelect");
 const tablesDiv = document.getElementById("tables");
+const selectedTableDiv = document.getElementById("selectedTable");
 
 
 // Ürünleri yükle
@@ -69,12 +71,27 @@ async function loadTables(){
             <p>${table.status}</p>
         `;
 
+
+        // Masa seçme
+
+        div.onclick = () => {
+
+            selectedTable = {
+                id: doc.id,
+                name: table.name
+            };
+
+            selectedTableDiv.innerText =
+            "Seçilen Masa: " + table.name;
+
+        };
+
+
         tablesDiv.appendChild(div);
 
     });
 
 }
-
 // Sepete ekle
 
 function addCart(product){
