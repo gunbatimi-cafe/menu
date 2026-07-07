@@ -324,11 +324,14 @@ async function syncOrder(){
 // Sipariş Kaydet
 saveBtn.onclick = async()=>{
 
+    saveBtn.disabled = true;
+
     try{
 
         if(!selectedTable){
 
             alert("Masa seçiniz");
+
             return;
 
         }
@@ -415,11 +418,15 @@ saveBtn.onclick = async()=>{
 
     }catch(err){
 
-        console.error(err);
+    console.error(err);
 
-        alert("Sipariş kaydedilemedi.");
+    alert("Sipariş kaydedilemedi.");
 
-    }
+}finally{
+
+    saveBtn.disabled = false;
+
+}
 
 };
 
@@ -476,6 +483,11 @@ if (closeTableBtn) {
 // Ödeme Al
 confirmPayment.onclick = async () => {
 
+    if (!currentOrderId || !selectedTable) {
+        alert("Açık sipariş bulunamadı.");
+        return;
+    }
+
     try {
 
         const payment =
@@ -516,6 +528,12 @@ confirmPayment.onclick = async () => {
 
 // Masayı Sil
 deleteOrderBtn.onclick = async () => {
+
+    // Güvenlik kontrolü
+    if (!currentOrderId || !selectedTable) {
+        alert("Silinecek açık sipariş bulunamadı.");
+        return;
+    }
 
     const ok = confirm(
         "Bu sipariş ciroya eklenmeden silinecek. Emin misiniz?"
