@@ -315,7 +315,96 @@ Masa Kapat / Ödeme Al
 
 
 
+<!-- Ödeme Penceresi -->
 
+<div id="paymentModal" style="
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.7);
+align-items:center;
+justify-content:center;
+z-index:999;
+">
+
+
+<div style="
+background:#211a14;
+padding:25px;
+border-radius:15px;
+width:300px;
+text-align:center;
+">
+
+
+<h2 style="color:#d9b26f;">
+Ödeme
+</h2>
+
+
+<p id="paymentTableName">
+</p>
+
+
+<label>
+<input type="radio" name="payment" value="Nakit" checked>
+Nakit
+</label>
+
+
+<br>
+
+
+<label>
+<input type="radio" name="payment" value="Kart">
+Kart
+</label>
+
+
+<br>
+
+
+<label>
+<input type="radio" name="payment" value="Diğer">
+Diğer
+</label>
+
+
+
+<button id="confirmPayment">
+
+Ödeme Al
+
+</button>
+
+
+
+<button id="deleteOrder" style="
+background:#a33;
+color:white;
+">
+
+Masayı Sil
+
+</button>
+
+
+
+<button id="cancelPayment">
+
+İptal
+
+</button>
+
+
+</div>
+
+
+</div>
+  
 <script type="module" src="js/order.js"></script>
 
 
