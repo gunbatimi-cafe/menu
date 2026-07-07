@@ -2,23 +2,20 @@ import { getProducts } from "./firestore.js";
 import { db } from "./firebase.js";
 
 import {
-collection,
-addDoc,
-serverTimestamp,
-updateDoc,
-doc,
-query,
-where,
-getDocs
+    collection,
+    addDoc,
+    serverTimestamp,
+    updateDoc,
+    doc,
+    query,
+    where,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
-
 
 let products = [];
 let cart = [];
 let selectedTable = null;
 let currentOrderId = null;
-
-
 
 const productsDiv = document.getElementById("products");
 const cartDiv = document.getElementById("cart");
@@ -29,9 +26,6 @@ const saveBtn = document.getElementById("saveOrder");
 const tablesDiv = document.getElementById("tables");
 const selectedTableDiv = document.getElementById("selectedTable");
 
-
-// ödeme modal
-
 const paymentModal = document.getElementById("paymentModal");
 const paymentTableName = document.getElementById("paymentTableName");
 
@@ -39,237 +33,137 @@ const confirmPayment = document.getElementById("confirmPayment");
 const deleteOrderBtn = document.getElementById("deleteOrder");
 const cancelPayment = document.getElementById("cancelPayment");
 
+const closeTableBtn = document.getElementById("closeTable");
 
-
-// Ürünleri yükle
-
-async function loadProducts(){
-
+async function loadProducts() {
 
     products = await getProducts();
 
+    productsDiv.innerHTML = "";
 
-    productsDiv.innerHTML="";
+    products.forEach(product => {
 
+        const div = document.createElement("div");
 
-    products.forEach(product=>{
+        div.className = "product";
 
-
-        const div=document.createElement("div");
-
-
-        div.className="product";
-
-
-        div.innerHTML=`
-
-        <h3>${product.name}</h3>
-
-        <p>${product.price} TL</p>
-
+        div.innerHTML = `
+            <h3>${product.name}</h3>
+            <p>${product.price} TL</p>
         `;
 
-
-        div.onclick=()=>{
-
-
-            addCart(product);
-
-
-        };
-
+        div.onclick = () => addCart(product);
 
         productsDiv.appendChild(div);
 
-
     });
-
 
 }
 
+async function loadTables() {
 
+    try {
 
+        const snapshot = await getDocs(collection(db, "tables"));
 
-// Masaları yükle
+        tablesDiv.innerHTML = "";
 
-async function loadTables(){
+        let tables = [];
 
+        snapshot.forEach(docSnap => {
 
-    const snapshot = await getDocs(
-        collection(db,"tables")
-    );
-
-
-    tablesDiv.innerHTML="";
-
-
-
-    let tables=[];
-
-
-    snapshot.forEach(docSnap=>{
-
-
-        tables.push({
-
-            id:docSnap.id,
-
-            ...docSnap.data()
+            tables.push({
+                id: docSnap.id,
+                ...docSnap.data()
+            });
 
         });
 
+        tables.sort((a, b) => a.number - b.number);
 
-    });
+        tables.forEach(table => {
 
+            const div = document.createElement("div");
 
+            div.className = "product";
 
-    tables.sort(
+            let statusText = "Boş";
 
-        (a,b)=>a.number-b.number
+            if (table.status === "open") statusText = "🔴 Açık";
 
-    );
+            if (
+                selectedTable &&
+                selectedTable.id === table.id
+            ) {
+                statusText = "🟡 Seçili";
+            }
 
+            div.innerHTML = `
+                <h3>${table.name}</h3>
+                <p>${statusText}</p>
+            `;
 
+            div.onclick = async () => {
 
-    tables.forEach(table=>{
+                selectedTable = {
+                    id: table.id,
+                    name: table.name,
+                    number: table.number
+                };
 
+                selectedTableDiv.innerText =
+                    "Seçilen Masa: " + table.name;
 
-        const div=document.createElement("div");
+                await loadOpenOrder(table.name);
 
-
-        div.className="product";
-
-
-
-        let statusText =
-        table.status==="open"
-        ? "Açık"
-        : "Boş";
-
-
-
-        div.innerHTML=`
-
-        <h3>${table.name}</h3>
-
-        <p>${statusText}</p>
-
-        `;
-
-
-
-        div.onclick=()=>{
-
-
-            selectedTable={
-
-                id:table.id,
-
-                name:table.name,
-
-                number:table.number
+                loadTables();
 
             };
 
+            tablesDiv.appendChild(div);
 
-            selectedTableDiv.innerText=
-            "Seçilen Masa: "+table.name;
+        });
 
+    } catch (e) {
 
-
-            if(table.status==="open"){
-
-                loadOpenOrder(table.name);
-
-            }
-            else{
-
-
-                cart=[];
-
-                currentOrderId=null;
-
-                renderCart();
-
-
-            }
-
-
-
-        };
-
-
-
-        tablesDiv.appendChild(div);
-
-
-
-    });
-
-
-
-}
-
-
-
-// Açık siparişi bul
-
-async function findOpenOrder(tableName){
-
-
-    const q=query(
-
-        collection(db,"orders"),
-
-        where("table","==",tableName),
-
-        where("status","==","open")
-
-    );
-
-
-    const snapshot = await getDocs(q);
-
-
-
-    if(snapshot.empty){
-
-        return null;
+        console.error(e);
+        alert("Masalar yüklenemedi.");
 
     }
 
+}
 
+async function findOpenOrder(tableName) {
 
-    const orderDoc=snapshot.docs[0];
+    const q = query(
+        collection(db, "orders"),
+        where("table", "==", tableName),
+        where("status", "==", "open")
+    );
 
+    const snapshot = await getDocs(q);
+
+    if (snapshot.empty) {
+        return null;
+    }
+
+    const orderDoc = snapshot.docs[0];
 
     return {
-
-        id:orderDoc.id,
-
+        id: orderDoc.id,
         ...orderDoc.data()
-
     };
-
 
 }
 
-
-
-// Masanın açık adisyonunu yükle
-
-async function loadOpenOrder(tableName){
-
+async function loadOpenOrder(tableName) {
 
     const order = await findOpenOrder(tableName);
 
+    if (!order) {
 
-
-    if(!order){
-
-        cart=[];
-
-        currentOrderId=null;
+        cart = [];
+        currentOrderId = null;
 
         renderCart();
 
@@ -277,234 +171,188 @@ async function loadOpenOrder(tableName){
 
     }
 
+    currentOrderId = order.id;
 
-
-    currentOrderId=order.id;
-
-
-
-    cart=order.items || [];
-
+    cart = [...order.items];
 
     renderCart();
 
+}
+// Sepeti çiz
+function renderCart() {
 
-}// Sepeti göster
+    cartDiv.innerHTML = "";
 
-function renderCart(){
+    let total = 0;
 
-
-    cartDiv.innerHTML="";
-
-
-    let total=0;
-
-
-
-    cart.forEach((item,index)=>{
-
+    cart.forEach((item, index) => {
 
         total += item.price * item.qty;
 
-
-
         cartDiv.innerHTML += `
-
         <div class="cart-item">
 
-            <span>
-            ${item.name} x${item.qty}
-            </span>
+            <span>${item.name} x${item.qty}</span>
 
+            <div class="cart-buttons">
 
-            <div>
+                <button class="mini-btn"
+                    onclick="changeQty(${index},-1)">−</button>
 
-            <button onclick="changeQty(${index},-1)">
-            -
-            </button>
+                <button class="mini-btn"
+                    onclick="changeQty(${index},1)">+</button>
 
-
-            <button onclick="changeQty(${index},1)">
-            +
-            </button>
-
-
-            <button onclick="removeItem(${index})">
-            🗑
-            </button>
+                <button class="mini-btn danger"
+                    onclick="removeItem(${index})">🗑</button>
 
             </div>
 
         </div>
-
         `;
-
 
     });
 
-
-
-    totalDiv.innerText =
-    total+" TL";
-
+    totalDiv.innerText = total + " TL";
 
 }
 
 
 
-// Ürün sepete ekleme
-
+// Ürün ekle
 function addCart(product){
 
-
-
-    const exist = cart.find(
-
-        item=>item.id===product.id
-
-    );
-
-
+    const exist = cart.find(i => i.id === product.id);
 
     if(exist){
 
-
         exist.qty++;
 
-
     }else{
-
 
         cart.push({
 
             id:product.id,
-
             name:product.name,
-
             price:product.price,
-
             qty:1
 
         });
 
-
     }
 
-
-
     renderCart();
-
-
 
 }
 
 
 
+// Firestore güncelle
+async function syncOrder(){
 
-// Sipariş kaydet
+    if(!currentOrderId) return;
 
-saveBtn.onclick=async()=>{
+    const total = cart.reduce(
 
-
-    if(!selectedTable){
-
-        alert("Masa seçiniz");
-
-        return;
-
-    }
-
-
-
-    if(cart.length===0){
-
-        alert("Ürün seçiniz");
-
-        return;
-
-    }
-
-
-
-
-    let total = cart.reduce(
-
-        (sum,item)=>
-
-        sum+(item.price*item.qty),
+        (sum,item)=>sum + item.price * item.qty,
 
         0
 
     );
 
+    await updateDoc(
+
+        doc(db,"orders",currentOrderId),
+
+        {
+
+            items:cart,
+
+            total:total
+
+        }
+
+    );
+
+}
 
 
 
-    const oldOrder =
-    await findOpenOrder(selectedTable.name);
+// Sipariş Kaydet
+saveBtn.onclick = async()=>{
 
+    try{
 
+        if(!selectedTable){
 
+            alert("Masa seçiniz");
+            return;
 
-    // açık sipariş varsa güncelle
+        }
 
-    if(oldOrder){
+        if(cart.length===0){
 
+            alert("Ürün seçiniz");
+            return;
 
-        await updateDoc(
+        }
 
-            doc(db,"orders",oldOrder.id),
+        const total = cart.reduce(
 
-            {
+            (sum,item)=>sum + item.price * item.qty,
 
-                items:cart,
-
-                total:total
-
-            }
-
-        );
-
-
-        currentOrderId=oldOrder.id;
-
-
-
-    }
-
-    else{
-
-
-
-        const newOrder =
-        await addDoc(
-
-            collection(db,"orders"),
-
-            {
-
-                table:selectedTable.name,
-
-                tableNumber:selectedTable.number,
-
-                items:cart,
-
-                total:total,
-
-                status:"open",
-
-                createdAt:serverTimestamp()
-
-            }
+            0
 
         );
 
+        const oldOrder = await findOpenOrder(selectedTable.name);
 
+        if(oldOrder){
 
-        currentOrderId=newOrder.id;
+            await updateDoc(
 
+                doc(db,"orders",oldOrder.id),
 
+                {
 
+                    items:cart,
+
+                    total:total
+
+                }
+
+            );
+
+            currentOrderId = oldOrder.id;
+
+        }else{
+
+            const newOrder = await addDoc(
+
+                collection(db,"orders"),
+
+                {
+
+                    table:selectedTable.name,
+
+                    tableNumber:selectedTable.number,
+
+                    items:cart,
+
+                    total:total,
+
+                    status:"open",
+
+                    createdAt:serverTimestamp()
+
+                }
+
+            );
+
+            currentOrderId = newOrder.id;
+
+        }
+
+        // Masa HER ZAMAN açık yapılır
         await updateDoc(
 
             doc(db,"tables",selectedTable.id),
@@ -517,272 +365,185 @@ saveBtn.onclick=async()=>{
 
         );
 
+        await loadTables();
+
+        alert("Adisyon kaydedildi.");
+
+    }catch(err){
+
+        console.error(err);
+
+        alert("Sipariş kaydedilemedi.");
 
     }
-
-
-
-    await loadTables();
-
-
-    alert("Adisyon güncellendi");
-
 
 };
 
 
 
-
-
-
-// Sepetteki ürün azalt artır
-
-window.changeQty=function(index,amount){
-
+// +
+window.changeQty = async function(index, amount){
 
     cart[index].qty += amount;
 
-
-
-    if(cart[index].qty<=0){
+    if(cart[index].qty <= 0){
 
         cart.splice(index,1);
 
     }
 
-
-
     renderCart();
 
+    await syncOrder();
 
 };
 
 
 
-
-
-// Sepetten sil
-
-window.removeItem=function(index){
-
+// 🗑
+window.removeItem = async function(index){
 
     cart.splice(index,1);
 
-
     renderCart();
 
+    await syncOrder();
 
 };
-
-
-
-
-
 // Ödeme penceresini aç
+if (closeTableBtn) {
 
-const closeTableBtn =
-document.getElementById("closeTable");
+    closeTableBtn.onclick = () => {
 
-if(!paymentModal){
-    console.log("Ödeme modal bulunamadı");
+        if (!selectedTable || !currentOrderId) {
+            alert("Açık masa seçiniz");
+            return;
+        }
+
+        paymentTableName.innerText = selectedTable.name;
+        paymentModal.style.display = "flex";
+
+    };
+
 }
 
-if(!confirmPayment){
-    console.log("Ödeme butonu bulunamadı");
-}
-
-if(closeTableBtn){
 
 
-closeTableBtn.onclick=()=>{
+// Ödeme Al
+confirmPayment.onclick = async () => {
 
+    try {
 
-    if(!currentOrderId){
+        const payment =
+            document.querySelector(
+                'input[name="payment"]:checked'
+            ).value;
 
-        alert("Açık masa seçiniz");
+        await updateDoc(
+            doc(db, "orders", currentOrderId),
+            {
+                status: "closed",
+                paymentType: payment,
+                closedAt: serverTimestamp()
+            }
+        );
 
-        return;
+        await updateDoc(
+            doc(db, "tables", selectedTable.id),
+            {
+                status: "empty"
+            }
+        );
+
+        closePaymentWindow();
+
+        alert("Ödeme tamamlandı.");
+
+    } catch (e) {
+
+        console.error(e);
+        alert("Ödeme alınamadı.");
 
     }
 
-
-
-    paymentTableName.innerText =
-    selectedTable.name;
+};
 
 
 
-    paymentModal.style.display="flex";
+// Masayı Sil
+deleteOrderBtn.onclick = async () => {
 
+    const ok = confirm(
+        "Bu sipariş ciroya eklenmeden silinecek. Emin misiniz?"
+    );
 
+    if (!ok) return;
+
+    try {
+
+        await updateDoc(
+            doc(db, "orders", currentOrderId),
+            {
+                status: "cancelled",
+                closedAt: serverTimestamp()
+            }
+        );
+
+        await updateDoc(
+            doc(db, "tables", selectedTable.id),
+            {
+                status: "empty"
+            }
+        );
+
+        closePaymentWindow();
+
+        alert("Masa silindi.");
+
+    } catch (e) {
+
+        console.error(e);
+        alert("Silme işlemi başarısız.");
+
+    }
 
 };
 
 
 
-}
+// Modal kapat
+cancelPayment.onclick = () => {
 
-
-
-
-
-
-// Ödemeyi tamamla
-
-confirmPayment.onclick=async()=>{
-
-
-    const payment =
-    document.querySelector(
-        'input[name="payment"]:checked'
-    ).value;
-
-
-
-    await updateDoc(
-
-        doc(db,"orders",currentOrderId),
-
-        {
-
-            status:"closed",
-
-            paymentType:payment,
-
-            closedAt:serverTimestamp()
-
-        }
-
-    );
-
-
-
-    await updateDoc(
-
-        doc(db,"tables",selectedTable.id),
-
-        {
-
-            status:"empty"
-
-        }
-
-    );
-
-
-
-    closePaymentWindow();
-
+    paymentModal.style.display = "none";
 
 };
 
 
 
+// Temizle
+function closePaymentWindow() {
 
+    paymentModal.style.display = "none";
 
+    cart = [];
+    currentOrderId = null;
+    selectedTable = null;
 
-// Masayı sil (ciroya girmez)
-
-deleteOrderBtn.onclick=async()=>{
-
-
-    let ok =
-    confirm(
-    "Bu sipariş silinecek ve ciroya eklenmeyecek. Emin misiniz?"
-    );
-
-
-
-    if(!ok) return;
-
-
-
-
-    await updateDoc(
-
-        doc(db,"orders",currentOrderId),
-
-        {
-
-            status:"cancelled",
-
-            closedAt:serverTimestamp()
-
-        }
-
-    );
-
-
-
-    await updateDoc(
-
-        doc(db,"tables",selectedTable.id),
-
-        {
-
-            status:"empty"
-
-        }
-
-    );
-
-
-
-    closePaymentWindow();
-
-
-};
-
-
-
-
-
-// ödeme penceresi kapat
-
-function closePaymentWindow(){
-
-
-    paymentModal.style.display="none";
-
-
-    cart=[];
-
-
-    currentOrderId=null;
-    selectedTable=null;
-
-selectedTableDiv.innerText =
-"Seçilen Masa: Yok";
-
+    selectedTableDiv.innerText =
+        "Seçilen Masa: Yok";
 
     renderCart();
 
-
     loadTables();
-    
-
 
 }
-
-
-
-
-
-cancelPayment.onclick=()=>{
-
-
-    paymentModal.style.display="none";
-
-
-};
-
-
-
 
 
 
 // Başlat
+window.onload = async () => {
 
-loadTables();
+    await loadProducts();
+    await loadTables();
 
-loadProducts();
+};
