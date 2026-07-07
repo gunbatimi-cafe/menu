@@ -14,6 +14,7 @@ doc
 let products = [];
 let cart = [];
 let selectedTable = null;
+let currentOrderId = null;
 
 
 const productsDiv = document.getElementById("products");
