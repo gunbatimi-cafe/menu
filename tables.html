@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Masalar</title>
+
+<link rel="stylesheet" href="css/admin.css">
+
+<style>
+
+.header{
+background:#211a14;
+padding:20px;
+text-align:center;
+color:#d9b26f;
+font-size:28px;
+font-weight:bold;
+border-bottom:2px solid #d9b26f;
+}
+
+.tables{
+padding:20px;
+display:grid;
+grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+gap:18px;
+}
+
+.table{
+background:#2b241c;
+border-radius:18px;
+padding:30px 10px;
+text-align:center;
+font-size:22px;
+font-weight:bold;
+cursor:pointer;
+transition:.2s;
+border:2px solid transparent;
+color:white;
+}
+
+.table:hover{
+transform:scale(1.04);
+}
+
+.empty{
+background:#1d6b35;
+}
+
+.full{
+background:#b02a2a;
+}
+
+.bill{
+background:#d9a400;
+color:black;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="header">
+🌅 Günbatımı Kafe
+</div>
+
+<div class="tables" id="tables"></div>
+
+<script>
+
+const container=document.getElementById("tables");
+
+for(let i=1;i<=20;i++){
+
+const div=document.createElement("div");
+
+div.className="table empty";
+
+div.innerHTML="Masa "+i;
+
+div.onclick=function(){
+
+window.location.href="order.html?table="+i;
+
+}
+
+container.appendChild(div);
+
+}
+
+</script>
+
+</body>
+</html>
