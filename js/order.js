@@ -115,8 +115,7 @@ async function loadTables() {
                     "Seçilen Masa: " + table.name;
 
                 await loadOpenOrder(table.name);
-
-                loadTables();
+                await loadTables();
 
             };
 
@@ -251,9 +250,54 @@ async function syncOrder(){
 
     if(!currentOrderId) return;
 
+    // Sepet tamamen boşaldıysa
+    if(cart.length===0){
+
+        await updateDoc(
+
+            doc(db,"orders",currentOrderId),
+
+            {
+
+                status:"cancelled",
+
+                closedAt:serverTimestamp()
+
+            }
+
+        );
+
+        await updateDoc(
+
+            doc(db,"tables",selectedTable.id),
+
+            {
+
+                status:"empty"
+
+            }
+
+        );
+
+        cart=[];
+
+        currentOrderId=null;
+
+        selectedTable=null;
+
+        selectedTableDiv.innerText="Seçilen Masa: Yok";
+
+        renderCart();
+
+        await loadTables();
+
+        return;
+
+    }
+
     const total = cart.reduce(
 
-        (sum,item)=>sum + item.price * item.qty,
+        (sum,item)=>sum + item.price*item.qty,
 
         0
 
