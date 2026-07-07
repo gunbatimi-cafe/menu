@@ -435,13 +435,13 @@ saveBtn.onclick = async()=>{
 // +
 window.changeQty = async function(index, amount){
 
-    cart[index].qty += amount;
+    const newQty = cart[index].qty + amount;
 
-    if(cart[index].qty <= 0){
-
-        cart.splice(index,1);
-
+    if(newQty < 1){
+        return;
     }
+
+    cart[index].qty = newQty;
 
     renderCart();
 
@@ -454,6 +454,12 @@ window.changeQty = async function(index, amount){
 // 🗑
 window.removeItem = async function(index){
 
+    const ok = confirm(
+        "Bu ürünü adisyondan silmek istediğinize emin misiniz?"
+    );
+
+    if(!ok) return;
+
     cart.splice(index,1);
 
     renderCart();
@@ -461,6 +467,7 @@ window.removeItem = async function(index){
     await syncOrder();
 
 };
+
 // Ödeme penceresini aç
 if (closeTableBtn) {
 
