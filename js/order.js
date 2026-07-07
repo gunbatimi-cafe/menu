@@ -171,10 +171,10 @@ function renderCart(){
 saveBtn.onclick = async () => {
 
 
-    const table = tableSelect.value;
+    const table = selectedTable?.name;
 
 
-    if(!table){
+    if(!selectedTable){
 
         alert("Masa seçiniz");
         return;
