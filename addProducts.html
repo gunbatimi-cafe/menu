@@ -19,65 +19,34 @@ collection,
 addDoc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
-
 const products = [
 
-{name:"Americano",price:160,category:"Kahve"},
-{name:"Latte",price:175,category:"Kahve"},
-{name:"Cappuccino",price:175,category:"Kahve"},
-{name:"Flat White",price:175,category:"Kahve"},
-{name:"Mocha",price:195,category:"Kahve"},
-{name:"Caramel Macchiato",price:195,category:"Kahve"},
-{name:"Türk Kahvesi",price:100,category:"Kahve"},
-{name:"Filtre Kahve",price:150,category:"Kahve"},
-{name:"Iced Filter Coffee",price:150,category:"Soğuk Kahve"},
+    // KAHVELER
+    {name:"Americano",price:160,category:"Kahveler",categoryOrder:1,sort:1},
+    {name:"Latte",price:175,category:"Kahveler",categoryOrder:1,sort:2},
+    {name:"Cappuccino",price:175,category:"Kahveler",categoryOrder:1,sort:3},
+    {name:"Flat White",price:175,category:"Kahveler",categoryOrder:1,sort:4},
+    {name:"Mocha",price:195,category:"Kahveler",categoryOrder:1,sort:5},
+    {name:"Caramel Macchiato",price:195,category:"Kahveler",categoryOrder:1,sort:6},
+    {name:"Türk Kahvesi",price:100,category:"Kahveler",categoryOrder:1,sort:7},
+    {name:"Filtre Kahve",price:150,category:"Kahveler",categoryOrder:1,sort:8},
+    {name:"Iced Filter Coffee",price:150,category:"Kahveler",categoryOrder:1,sort:9},
 
-{name:"Siyah Çay",price:25,category:"Çay"},
-{name:"Ada Çayı",price:25,category:"Çay"},
+    // ÇAYLAR
+    {name:"Siyah Çay",price:25,category:"Çaylar",categoryOrder:2,sort:1},
+    {name:"Ada Çayı",price:25,category:"Çaylar",categoryOrder:2,sort:2},
 
-{name:"Waffle Tabak",price:300,category:"Tatlı"},
-{name:"Waffle Bardak",price:250,category:"Tatlı"},
-{name:"Dondurma 1 Top",price:60,category:"Tatlı"},
+    // MİLKSHAKE
+    {name:"Milkshake",price:250,category:"Milkshake",categoryOrder:3,sort:1},
 
-{name:"Nugget Tabağı",price:150,category:"Atıştırmalık"},
-{name:"Sosis Tabağı",price:150,category:"Atıştırmalık"},
-{name:"Patates Tabağı",price:150,category:"Atıştırmalık"},
-{name:"Karışık Tabak",price:300,category:"Atıştırmalık"},
+    // WAFFLE
+    {name:"Waffle Bardak",price:250,category:"Waffle",categoryOrder:4,sort:1},
+    {name:"Waffle Tabak",price:300,category:"Waffle",categoryOrder:4,sort:2},
 
-{name:"Chicken Burger",price:200,category:"Burger"},
-{name:"Chicken Burger Menü",price:300,category:"Burger"},
+    // DONDURMA
+    {name:"1 Top Dondurma",price:60,category:"Dondurma",categoryOrder:5,sort:1},
 
-{name:"Tost",price:150,category:"Tost"},
-{name:"Patsos",price:200,category:"Tost"},
+    // TOSTLAR
+    {name:"Tost",price:150,category:"Tostlar",categoryOrder:6,sort:1},
 
-{name:"Milkshake",price:250,category:"İçecek"},
-{name:"Kola",price:100,category:"İçecek"},
-{name:"Gazoz",price:100,category:"İçecek"},
-{name:"Soda",price:50,category:"İçecek"},
-{name:"Su",price:25,category:"İçecek"}
-
-];
-
-
-async function addProducts(){
-
-for(const product of products){
-
-await addDoc(
-collection(db,"products"),
-product
-);
-
-}
-
-alert("Menü eklendi");
-
-}
-
-
-addProducts();
-
-</script>
-
-</body>
-</html>
+    //
