@@ -6,6 +6,8 @@ collection,
 addDoc,
 serverTimestamp,
 getDocs
+updateDoc
+doc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 
@@ -210,7 +212,15 @@ saveBtn.onclick = async () => {
 
     });
 
+// Masayı dolu yap
 
+await updateDoc(
+    doc(db,"tables",selectedTable.id),
+    {
+        status:"open"
+    }
+);
+    
     alert("Sipariş kaydedildi");
 
 
