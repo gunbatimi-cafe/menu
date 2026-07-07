@@ -5,8 +5,8 @@ import {
 collection,
 addDoc,
 serverTimestamp,
-getDocs
-updateDoc
+getDocs,
+updateDoc,
 doc
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
