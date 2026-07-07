@@ -290,6 +290,74 @@ async function showTableOrder(tableName){
 }
 // Sayfa açılışında yükle
 
+window.editOrderQty = async function(index, amount){
+
+    const orderRef = doc(db,"orders",currentOrderId);
+
+    const snap = await getDocs(collection(db,"orders"));
+
+    snap.forEach(async d=>{
+
+        if(d.id === currentOrderId){
+
+            let order = d.data();
+
+            order.items[index].qty += amount;
+
+            if(order.items[index].qty <= 0){
+                order.items.splice(index,1);
+            }
+
+            order.total = order.items.reduce(
+                (sum,item)=> sum + item.price * item.qty,
+                0
+            );
+
+            await updateDoc(orderRef,{
+                items: order.items,
+                total: order.total
+            });
+
+            showTableOrder(order.table);
+
+        }
+
+    });
+
+};
+
+
+window.deleteOrderItem = async function(index){
+
+    const orderRef = doc(db,"orders",currentOrderId);
+
+    const snap = await getDocs(collection(db,"orders"));
+
+    snap.forEach(async d=>{
+
+        if(d.id === currentOrderId){
+
+            let order = d.data();
+
+            order.items.splice(index,1);
+
+            order.total = order.items.reduce(
+                (sum,item)=> sum + item.price * item.qty,
+                0
+            );
+
+            await updateDoc(orderRef,{
+                items: order.items,
+                total: order.total
+            });
+
+            showTableOrder(order.table);
+
+        }
+
+    });
+
+};
 
 loadTables();
 loadProducts();
