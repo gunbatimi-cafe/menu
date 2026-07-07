@@ -262,32 +262,68 @@ async function showTableOrder(tableName){
 
     const snapshot = await getDocs(collection(db,"orders"));
 
-    let text = "Seçilen Masa: " + tableName + "\n\n";
+    cartDiv.innerHTML = "";
 
-    snapshot.forEach(doc=>{
+    let total = 0;
 
-        const order = doc.data();
+    snapshot.forEach(docSnap=>{
+
+        const order = docSnap.data();
 
         if(order.table === tableName && order.status === "open"){
 
-            order.items.forEach(item=>{
+            currentOrderId = docSnap.id;
 
-                text += 
-                item.name + 
-                " x" + item.qty + 
-                "\n";
+
+            order.items.forEach((item,index)=>{
+
+                total += item.price * item.qty;
+
+
+                cartDiv.innerHTML += `
+
+                <div class="cart-item">
+
+                    <span>
+                    ${item.name} x${item.qty}
+                    </span>
+
+
+                    <div>
+
+                    <button>
+                    -
+                    </button>
+
+
+                    <button>
+                    +
+                    </button>
+
+
+                    <button>
+                    🗑
+                    </button>
+
+
+                    </div>
+
+                </div>
+
+                `;
 
             });
-
-            text += "\nToplam: " + order.total + " TL";
 
         }
 
     });
 
-    alert(text);
+
+    totalDiv.innerText = total + " TL";
+
 
 }
+
 // Sayfa açılışında yükle
 
 window.editOrderQty = async function(index, amount){
