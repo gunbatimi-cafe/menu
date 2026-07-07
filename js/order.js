@@ -584,7 +584,13 @@ window.removeItem=function(index){
 const closeTableBtn =
 document.getElementById("closeTable");
 
+if(!paymentModal){
+    console.log("Ödeme modal bulunamadı");
+}
 
+if(!confirmPayment){
+    console.log("Ödeme butonu bulunamadı");
+}
 
 if(closeTableBtn){
 
