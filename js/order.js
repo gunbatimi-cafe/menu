@@ -42,7 +42,26 @@ async function loadProducts() {
 
     productsDiv.innerHTML = "";
 
+    let currentCategory = "";
+
     products.forEach(product => {
+
+        if (currentCategory !== product.category) {
+
+            currentCategory = product.category;
+
+            const title = document.createElement("h2");
+
+            title.textContent = currentCategory;
+
+            title.style.color = "#d9b26f";
+            title.style.gridColumn = "1 / -1";
+            title.style.marginTop = "20px";
+            title.style.marginBottom = "5px";
+
+            productsDiv.appendChild(title);
+
+        }
 
         const div = document.createElement("div");
 
