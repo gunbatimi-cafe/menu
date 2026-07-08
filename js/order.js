@@ -50,16 +50,13 @@ async function loadProducts() {
 
             currentCategory = product.category;
 
-            const title = document.createElement("h2");
+            const title = document.createElement("div");
 
-            title.textContent = currentCategory;
+title.className = "category-title";
 
-            title.style.color = "#d9b26f";
-            title.style.gridColumn = "1 / -1";
-            title.style.marginTop = "20px";
-            title.style.marginBottom = "5px";
+title.textContent = currentCategory;
 
-            productsDiv.appendChild(title);
+productsDiv.appendChild(title);
 
         }
 
