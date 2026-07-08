@@ -244,7 +244,38 @@ function renderCart() {
 
 }
 
+function openOptionModal(title, options, callback){
 
+    optionTitle.innerText = title;
+    optionList.innerHTML = "";
+
+    options.forEach(option => {
+
+        const btn = document.createElement("button");
+
+        btn.innerText = option;
+        btn.style.marginBottom = "10px";
+
+        btn.onclick = () => {
+
+            optionModal.style.display = "none";
+            callback(option);
+
+        };
+
+        optionList.appendChild(btn);
+
+    });
+
+    optionModal.style.display = "flex";
+
+}
+
+optionCancel.onclick = () => {
+
+    optionModal.style.display = "none";
+
+};
 
 // Ürün ekle
 function addCart(product){
