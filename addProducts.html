@@ -1,18 +1,91 @@
 <!DOCTYPE html>
 <html lang="tr">
-
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Menü Oluştur</title>
+<title>Ürün Ekle</title>
 </head>
 
 <body>
 
 <h2>Menü yükleniyor...</h2>
 
-<script type="module" src="js/addProducts.js"></script>
+<script type="module">
+
+import { db } from "./js/firebase.js";
+
+import {
+collection,
+addDoc
+} from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
+
+const products = [
+
+/* Kahveler */
+{name:"Americano",price:160,category:"Kahve",categoryOrder:1,sort:1},
+{name:"Latte",price:175,category:"Kahve",categoryOrder:1,sort:2},
+{name:"Cappuccino",price:175,category:"Kahve",categoryOrder:1,sort:3},
+{name:"Flat White",price:175,category:"Kahve",categoryOrder:1,sort:4},
+{name:"Mocha",price:195,category:"Kahve",categoryOrder:1,sort:5},
+{name:"Caramel Macchiato",price:195,category:"Kahve",categoryOrder:1,sort:6},
+{name:"Türk Kahvesi",price:100,category:"Kahve",categoryOrder:1,sort:7},
+{name:"Filtre Kahve",price:150,category:"Kahve",categoryOrder:1,sort:8},
+
+/* Soğuk Kahveler */
+{name:"Iced Filter Coffee",price:150,category:"Soğuk Kahve",categoryOrder:2,sort:1},
+
+/* Çaylar */
+{name:"Siyah Çay",price:25,category:"Çay",categoryOrder:3,sort:1},
+{name:"Ada Çayı",price:25,category:"Çay",categoryOrder:3,sort:2},
+
+/* Waffle */
+{name:"Waffle Tabak",price:300,category:"Waffle",categoryOrder:4,sort:1},
+{name:"Waffle Bardak",price:250,category:"Waffle",categoryOrder:4,sort:2},
+
+/* Dondurma */
+{name:"Dondurma 1 Top",price:60,category:"Dondurma",categoryOrder:5,sort:1},
+
+/* Atıştırmalık */
+{name:"Nugget Tabağı",price:150,category:"Atıştırmalık",categoryOrder:6,sort:1},
+{name:"Sosis Tabağı",price:150,category:"Atıştırmalık",categoryOrder:6,sort:2},
+{name:"Patates Tabağı",price:150,category:"Atıştırmalık",categoryOrder:6,sort:3},
+{name:"Karışık Tabak",price:300,category:"Atıştırmalık",categoryOrder:6,sort:4},
+
+/* Burger */
+{name:"Chicken Burger",price:200,category:"Burger",categoryOrder:7,sort:1},
+{name:"Chicken Burger Menü",price:300,category:"Burger",categoryOrder:7,sort:2},
+
+/* Tost */
+{name:"Tost",price:150,category:"Tost",categoryOrder:8,sort:1},
+{name:"Patso",price:200,category:"Tost",categoryOrder:8,sort:2},
+
+/* İçecekler */
+{name:"Milkshake",price:250,category:"İçecek",categoryOrder:9,sort:1},
+{name:"Kola",price:100,category:"İçecek",categoryOrder:9,sort:2},
+{name:"Gazoz",price:100,category:"İçecek",categoryOrder:9,sort:3},
+{name:"Soda",price:50,category:"İçecek",categoryOrder:9,sort:4},
+{name:"Su",price:25,category:"İçecek",categoryOrder:9,sort:5}
+
+];
+
+async function addProducts(){
+
+    for(const product of products){
+
+        await addDoc(
+            collection(db,"products"),
+            product
+        );
+
+    }
+
+    alert("Menü başarıyla eklendi.");
+
+}
+
+addProducts();
+
+</script>
 
 </body>
-
 </html>
