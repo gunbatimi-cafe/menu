@@ -35,6 +35,11 @@ const cancelPayment = document.getElementById("cancelPayment");
 
 const closeTableBtn = document.getElementById("closeTable");
 const orderSection = document.getElementById("orderSection");
+// Ürün seçim penceresi
+const optionModal = document.getElementById("optionModal");
+const optionTitle = document.getElementById("optionTitle");
+const optionList = document.getElementById("optionList");
+const optionCancel = document.getElementById("optionCancel");
 
 async function loadProducts() {
 
