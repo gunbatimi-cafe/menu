@@ -1,8 +1,8 @@
 import { db } from "./firebase.js";
 
 import {
-    collection,
-    getDocs
+collection,
+getDocs
 } from "https://www.gstatic.com/firebasejs/12.0.0/firebase-firestore.js";
 
 export async function getProducts() {
@@ -26,14 +26,13 @@ export async function getProducts() {
 
     products.sort((a, b) => {
 
-        if (a.category === b.category) {
-            return a.sort - b.sort;
+        if (a.categoryOrder !== b.categoryOrder) {
+
+            return a.categoryOrder - b.categoryOrder;
+
         }
 
-        return a.category.localeCompare(
-            b.category,
-            "tr"
-        );
+        return a.sort - b.sort;
 
     });
 
